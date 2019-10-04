@@ -3,25 +3,42 @@ import math
 def init(): 
     string = input("Please enter a string to be searched \n")
     substring = input("Please enter the substring you wish to look for \n")
-    counter = 0
+    leftString = rightString = []
     print(divide(string, substring))
 
 def divide(string, substring):
-    if len(string) > 1:
-        print(string)
-        if not string and substring:
+    if len(string) > 1: # base case if string is empty
+        if not string and substring: # base case if string is not provided but substring is
             return False
-        elif substring == string:
+        elif substring == string: # base case if substring is equal to string
             return True
         else:
-            mid = math.ceil(len(string) // 2)
+            mid = len(string) // 2
             leftString = string[:mid]
             rightString = string[mid:]
+            print("left split:", leftString)
+            print("right split:", rightString)
 
             divide(leftString, substring)
             divide(rightString, substring)
-init()
+            return(merge(leftString, rightString, substring))
+    else:
+        return False
 
+def merge(leftString, rightString, substring):
+    i = 0
+    while i < len(leftString) and i < len(rightString):
+        print("leftString:", leftString)
+        print("rightString:", rightString)
+        if leftString == substring:
+            return True
+        if rightString == substring:
+            return True
+        if leftString[i] + rightString[i] == substring:
+            return True
+        i += 1
+
+init()
 
 
 '''# Python program for implementation of MergeSort 
